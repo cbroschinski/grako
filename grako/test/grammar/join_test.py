@@ -73,8 +73,8 @@ class JoinTests(unittest.TestCase):
         '''
         model = compile(grammar, "test")
         c = codegen(model)
-        import parser
-        parser.suite(c)
+        from ast import parse
+        parse(c)
 
         ast = model.parse("x a b x", nameguard=False)
         self.assertEqual(['x', ['a', 'b'], 'x'], ast)
@@ -139,8 +139,8 @@ class JoinTests(unittest.TestCase):
         '''
         model = compile(grammar, "test")
         c = codegen(model)
-        import parser
-        parser.suite(c)
+        from ast import parse
+        parse(c)
 
         ast = model.parse("x a b x", nameguard=False)
         self.assertEqual(['x', 'x'], ast)

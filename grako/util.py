@@ -188,7 +188,7 @@ def eval_escapes(s):
 
 def isiter(value):
     return (
-        isinstance(value, collections.Iterable) and
+        isinstance(value, collections.abc.Iterable) and
         not isinstance(value, strtype)
     )
 
@@ -244,7 +244,7 @@ def timestamp():
 
 
 def asjson(obj, seen=None):
-    if isinstance(obj, collections.Mapping) or isiter(obj):
+    if isinstance(obj, collections.abc.Mapping) or isiter(obj):
         # prevent traversal of recursive structures
         if seen is None:
             seen = set()
@@ -254,7 +254,7 @@ def asjson(obj, seen=None):
 
     if hasattr(obj, '__json__') and type(obj) is not type:
         return obj.__json__()
-    elif isinstance(obj, collections.Mapping):
+    elif isinstance(obj, collections.abc.Mapping):
         result = collections.OrderedDict()
         for k, v in obj.items():
             try:

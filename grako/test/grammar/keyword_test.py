@@ -49,7 +49,6 @@ class KeywordTests(unittest.TestCase):
         assert semantics.called
 
     def test_define_keywords(self):
-        import parser
 
         grammar = '''
             @@keyword :: B C
@@ -59,17 +58,17 @@ class KeywordTests(unittest.TestCase):
         '''
         model = compile(grammar, "test")
         c = codegen(model)
-        parser.suite(c)
+        from ast import parse
+        parse(c)
 
         grammar2 = str(model)
         model2 = compile(grammar2, "test")
         c2 = codegen(model2)
-        parser.suite(c2)
+        parse(c2)
 
         self.assertEqual(grammar2, str(model2))
 
     def test_check_keywords(self):
-        import parser
 
         grammar = '''
             @@keyword :: A
@@ -81,7 +80,8 @@ class KeywordTests(unittest.TestCase):
         '''
         model = compile(grammar, 'test')
         c = codegen(model)
-        parser.suite(c)
+        from ast import parse
+        parse(c)
 
         ast = model.parse('hello world')
         self.assertEqual(['hello', 'world'], ast)
